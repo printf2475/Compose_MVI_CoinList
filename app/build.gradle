@@ -1,0 +1,86 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+}
+
+android {
+    namespace 'com.example.compose_mvi_coinlist'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.compose_mvi_coinlist"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField("String", "COIN_BASE_URL", '"https://api.bithumb.com/public/"')
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.4'
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+}
+
+dependencies {
+
+    // AndroidX
+    implementation(libs.bundles.androidx)
+
+    // Junit
+    testImplementation(libs.bundles.junit)
+    implementation(libs.androidx.test.runner)
+
+    // Retrofit2
+    implementation(libs.bundles.retrofit)
+
+    // okhttp
+    implementation(libs.bundles.okhttp)
+
+    // Dagger Hilt
+    implementation(libs.bundles.hilt)
+    kapt(libs.hilt.android.compiler)
+
+
+    // Compose
+    implementation(platform(libs.compose))
+    implementation(libs.bundles.compose)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Mavericks
+    implementation(libs.bundles.mavericks)
+
+    // Accompanist
+    implementation(libs.accompanist.placeholder)
+
+}
